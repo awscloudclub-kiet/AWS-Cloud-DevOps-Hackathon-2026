@@ -5,9 +5,27 @@
 <h1 align="center">Cloud & DevOps Hackathon – AWS</h1>
 
 <p align="center">
-  Organized by AWS Cloud Club KIET<br/>
+  Organized by <strong>AWS Cloud Club KIET</strong><br/>
+  Under the <strong>Department of Computer Science and Engineering (CSE)</strong><br/>
   Learning Cloud and DevOps through real-world implementation
 </p>
+
+---
+
+## Index
+
+1. [Introduction](#introduction)  
+2. [Objectives of the Hackathon](#objectives-of-the-hackathon)  
+3. [Target Audience and Skill Levels](#target-audience-and-skill-levels)  
+4. [Hackathon Format](#hackathon-format)  
+5. [Team Formation Rules](#team-formation-rules)  
+6. [Repository Submission Structure](#repository-submission-structure-mandatory)  
+7. [Project README Requirements](#project-readme-requirements)  
+8. [Demo Video Submission](#demo-video-submission-mandatory)  
+9. [Submission Process](#submission-process)  
+10. [Rules and Code of Conduct](#rules-and-code-of-conduct)  
+11. [Expected Learning Outcomes](#expected-learning-outcomes)  
+12. [Final Organizer Statement](#final-organizer-statement)
 
 ---
 
@@ -23,11 +41,11 @@ This hackathon follows a learning-first approach. The primary goal is not compet
 
 The objectives of this hackathon are:
 
-- To introduce students to core cloud computing concepts
-- To explain the end-to-end DevOps lifecycle
-- To build confidence in deploying and managing applications on AWS
-- To promote hands-on learning through real-world cloud use cases
-- To encourage best practices in documentation, security, and automation
+- To introduce students to core cloud computing concepts  
+- To explain the end-to-end DevOps lifecycle  
+- To build confidence in deploying and managing applications on AWS  
+- To promote hands-on learning through real-world cloud use cases  
+- To encourage best practices in documentation, security, and automation  
 
 ---
 
@@ -47,9 +65,9 @@ Each team must submit one project from the Beginner level and one project from t
 
 ## Hackathon Format
 
-- Type: Guided Mini Hackathon
-- Duration: 6 to 8 hours
-- Theme: Cloud and DevOps using Amazon Web Services
+- Type: Guided Mini Hackathon  
+- Duration: 6 to 8 hours  
+- Theme: Cloud and DevOps using Amazon Web Services  
 
 Mentors will be available throughout the event to guide participants conceptually. Mentors will not write, configure, or deploy solutions on behalf of the teams.
 
@@ -57,12 +75,12 @@ Mentors will be available throughout the event to guide participants conceptuall
 
 ## Team Formation Rules
 
-- Each team must consist of 4 to 5 members
-- Each team must form a single submission unit
-- Cross-year and mixed-experience teams are encouraged
-- Each team must submit exactly two projects:
-  - One Beginner project
-  - One Intermediate project
+- Each team must consist of 4 to 5 members  
+- Each team must form a single submission unit  
+- Cross-year and mixed-experience teams are encouraged  
+- Each team must submit exactly two projects:  
+  - One Beginner project  
+  - One Intermediate project  
 
 ---
 
@@ -80,10 +98,10 @@ Team-YourTeamName/
 │       └── src/
 │
 └── intermediate/
-     └── intermediate-project-name/
-     ├── README.md
-     ├── architecture.png
-     └── src/
+      └── intermediate-project-name/
+      ├── README.md
+      ├── architecture.png
+      └── src/
 
 ```
 
@@ -95,15 +113,15 @@ Submissions that do not strictly follow this structure will not be evaluated.
 
 Each project, both Beginner and Intermediate, must contain a detailed README.md file with the following sections:
 
-- Problem Statement
-- Architecture Overview
-- AWS Services Used
-- Deployment Steps
-- Security Considerations
-- Challenges Faced
-- Key Learnings
-- Screenshots (optional)
-- Demo Video Link (mandatory)
+- Problem Statement  
+- Architecture Overview  
+- AWS Services Used  
+- Deployment Steps  
+- Security Considerations  
+- Challenges Faced  
+- Key Learnings  
+- Screenshots (optional)  
+- Demo Video Link (mandatory)  
 
 ---
 
@@ -114,11 +132,11 @@ Each project must include a recorded demo video with a duration of 5 to 8 minute
 The video must be uploaded to YouTube and can be either Public or Unlisted.
 
 The demo video must cover:
-- Problem explanation
-- Architecture walkthrough
-- AWS services used
-- Application deployment or execution
-- Observations and learnings
+- Problem explanation  
+- Architecture walkthrough  
+- AWS services used  
+- Application deployment or execution  
+- Observations and learnings  
 
 The YouTube video link must be added inside the project README.md file.
 
@@ -128,11 +146,11 @@ Projects submitted without a demo video link will receive heavy penalties or may
 
 ## Submission Process
 
-1. Fork this repository to your GitHub account
-2. Create a folder using your team name
-3. Add both Beginner and Intermediate projects following the defined structure
-4. Ensure all documentation and video links are present
-5. Raise a single Pull Request for evaluation
+1. Fork this repository to your GitHub account  
+2. Create a folder using your team name  
+3. Add both Beginner and Intermediate projects following the defined structure  
+4. Ensure all documentation and video links are present  
+5. Raise a single Pull Request for evaluation  
 
 Multiple pull requests from the same team are not allowed.
 
@@ -140,11 +158,10 @@ Multiple pull requests from the same team are not allowed.
 
 ## Rules and Code of Conduct
 
-- Plagiarism is strictly prohibited
-- Pre-built or copied projects are not allowed
-- Internet usage is permitted
-- Mentors may guide conceptually but must not implement solutions
-- All participants are expected to follow ethical and respectful collaboration practices
+- Plagiarism is strictly prohibited  
+- Pre-built or copied projects are not allowed  
+- Mentors may guide conceptually but must not implement solutions  
+- All participants are expected to follow ethical and respectful collaboration practices  
 
 ---
 
@@ -152,11 +169,11 @@ Multiple pull requests from the same team are not allowed.
 
 By the end of the hackathon, participants will be able to:
 
-- Understand AWS core services and cloud fundamentals
-- Deploy real-world applications on cloud infrastructure
-- Apply DevOps principles and automation workflows
-- Design and explain cloud architectures confidently
-- Document projects in a professional and structured manner
+- Understand AWS core services and cloud fundamentals  
+- Deploy real-world applications on cloud infrastructure  
+- Apply DevOps principles and automation workflows  
+- Design and explain cloud architectures confidently  
+- Document projects in a professional and structured manner  
 
 ---
 
@@ -166,4 +183,4 @@ By the end of the hackathon, participants will be able to:
 
 Team AWS Cloud Club KIET
 
----
+
