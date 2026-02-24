@@ -66,7 +66,6 @@ Each team must submit one project from the Beginner level and one project from t
 ## Hackathon Format
 
 - Type: Guided Mini Hackathon  
-- Duration: 6 to 8 hours  
 - Theme: Cloud and DevOps using Amazon Web Services  
 
 Mentors will be available throughout the event to guide participants conceptually. Mentors will not write, configure, or deploy solutions on behalf of the teams.
