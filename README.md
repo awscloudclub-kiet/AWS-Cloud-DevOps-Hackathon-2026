@@ -2,7 +2,7 @@
   <img src="./assets/aws-cloud-club-logo.jpg" alt="AWS Cloud Club Logo" width="180"/>
 </p>
 
-<h1 align="center">Cloud & DevOps Hackathon – AWS</h1>
+<h1 align="center">CloudSprint: AWS DevOps Challenge</h1>
 
 <p align="center">
   Organized by <strong>AWS Cloud Club KIET</strong><br/>
