@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Frontend Layer"
+        A[Web Browser<br/>HTML + JavaScript]
+    end
+    
+    subgraph "Backend Layer"
+        B[Django REST API<br/>JWT Authentication]
+        C[(SQLite Database<br/>File Metadata)]
+    end
+    
+    subgraph "AWS Cloud"
+        D[Amazon S3<br/>Object Storage]
+        E[IAM<br/>Access Management]
+    end
+    
+    A -->|1. Login Request| B
+    B -->|2. JWT Token| A
+    A -->|3. Request Presigned URL| B
+    B -->|4. Generate URL| D
+    B -->|5. Presigned URL| A
+    A -->|6. Direct PUT Request| D
+    B -->|Save Metadata| C
+    E -.->|Credentials| B
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#f0f0f0
+    style D fill:#ff9800
+    style E fill:#ffeb3b
+    
+    classDef frontend fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
+    classDef backend fill:#fff4e1,stroke:#f57c00,stroke-width:2px
+    classDef aws fill:#ff9800,stroke:#e65100,stroke-width:2px
