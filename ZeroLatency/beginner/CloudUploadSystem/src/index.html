@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CloudSubmit</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      padding: 40px;
+      border-radius: 15px;
+      width: 380px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 95%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #ff9900;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #e68a00;
+      transform: scale(1.03);
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>☁️ CloudSubmit Portal</h2>
+
+  <input type="text" id="student" placeholder="Enter Student Name">
+
+  <input type="file" id="file">
+
+  <button onclick="uploadFile()">Upload Assignment</button>
+
+  <p id="status"></p>
+</div>
+
+<script>
+async function uploadFile() {
+
+  const file = document.getElementById("file").files[0];
+  const student = document.getElementById("student").value;
+
+  if(!file || !student){
+    document.getElementById("status").innerText =
+      "⚠️ Please enter name and select file";
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("student", student);
+
+  document.getElementById("status").innerText = "Uploading... ⏳";
+
+  const response = await fetch("/upload", {
+    method: "POST",
+    body: formData
+  });
+
+  const result = await response.text();
+  document.getElementById("status").innerText = result;
+}
+</script>
+
+</body>
+</html>
