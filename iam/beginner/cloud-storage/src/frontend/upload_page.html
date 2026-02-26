@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Storage - File Upload</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .auth-section, .upload-section {
+            display: none;
+        }
+
+        .auth-section.active, .upload-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .file-input-wrapper:hover {
+            border-color: #667eea;
+            background: #f0f0ff;
+        }
+
+        .file-input-wrapper.drag-over {
+            border-color: #667eea;
+            background: #e8ebff;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .file-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .selected-file {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f0f0ff;
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .selected-file.active {
+            display: flex;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-name {
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .remove-file {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+        }
+
+        .remove-file:hover {
+            color: #f44336;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .message.active {
+            display: block;
+        }
+
+        .message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .message.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            margin-top: 10px;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .logout-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .user-info {
+            background: #f0f0ff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div class="auth-section active" id="authSection">
+            <h1>🔐 Sign In</h1>
+            <p class="subtitle">Enter your credentials to upload files</p>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            
+            <button id="loginBtn">Sign In</button>
+            
+            <div class="message" id="authMessage"></div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-section" id="uploadSection">
+            <h1>☁️ Cloud Storage</h1>
+            <p class="subtitle">Upload your files securely to S3</p>
+            
+            <div class="user-info" id="userInfo"></div>
+            
+            <div class="file-input-wrapper" id="fileInputWrapper">
+                <div class="file-icon">📁</div>
+                <div class="file-text">
+                    <strong>Click to select</strong> or drag and drop<br>
+                    <small>Any file type supported</small>
+                </div>
+                <input type="file" id="fileInput">
+            </div>
+            
+            <div class="selected-file" id="selectedFile">
+                <div class="file-info">
+                    <span>📄</span>
+                    <span class="file-name" id="fileName"></span>
+                </div>
+                <button class="remove-file" id="removeFile">✕</button>
+            </div>
+            
+            <button id="uploadBtn" disabled>Upload File</button>
+            
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="message" id="uploadMessage"></div>
+            
+            <button class="logout-btn" id="logoutBtn">Sign Out</button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - Update this with your backend URL
+        const API_BASE_URL = 'http://127.0.0.1:8000/api';
+        
+        // DOM Elements
+        const authSection = document.getElementById('authSection');
+        const uploadSection = document.getElementById('uploadSection');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const fileInputWrapper = document.getElementById('fileInputWrapper');
+        const fileInput = document.getElementById('fileInput');
+        const selectedFile = document.getElementById('selectedFile');
+        const fileName = document.getElementById('fileName');
+        const removeFile = document.getElementById('removeFile');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const authMessage = document.getElementById('authMessage');
+        const uploadMessage = document.getElementById('uploadMessage');
+        const userInfo = document.getElementById('userInfo');
+
+        let selectedFileObj = null;
+        let authToken = localStorage.getItem('authToken');
+
+        // Check if already logged in
+        if (authToken) {
+            showUploadSection();
+        }
+
+        // Login functionality
+        loginBtn.addEventListener('click', async () => {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!username || !password) {
+                showMessage(authMessage, 'Please enter both username and password', 'error');
+                return;
+            }
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/token/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    authToken = data.access;
+                    localStorage.setItem('authToken', authToken);
+                    localStorage.setItem('username', username);
+                    showMessage(authMessage, 'Login successful!', 'success');
+                    setTimeout(showUploadSection, 500);
+                } else {
+                    showMessage(authMessage, 'Invalid credentials. Please try again.', 'error');
+                }
+            } catch (error) {
+                showMessage(authMessage, 'Connection error. Please try again.', 'error');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
+            }
+        });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('username');
+            authToken = null;
+            usernameInput.value = '';
+            passwordInput.value = '';
+            authSection.classList.add('active');
+            uploadSection.classList.remove('active');
+            showMessage(authMessage, 'Logged out successfully', 'success');
+        });
+
+        // File selection
+        fileInputWrapper.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFileSelect(e.target.files[0]);
+        });
+
+        // Drag and drop
+        fileInputWrapper.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileInputWrapper.classList.add('drag-over');
+        });
+
+        fileInputWrapper.addEventListener('dragleave', () => {
+            fileInputWrapper.classList.remove('drag-over');
+        });
+
+        fileInputWrapper.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileInputWrapper.classList.remove('drag-over');
+            handleFileSelect(e.dataTransfer.files[0]);
+        });
+
+        removeFile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedFileObj = null;
+            fileInput.value = '';
+            selectedFile.classList.remove('active');
+            uploadBtn.disabled = true;
+            uploadMessage.classList.remove('active');
+        });
+
+        // Upload functionality
+        uploadBtn.addEventListener('click', uploadFile);
+
+        function handleFileSelect(file) {
+            if (file) {
+                selectedFileObj = file;
+                fileName.textContent = file.name;
+                selectedFile.classList.add('active');
+                uploadBtn.disabled = false;
+                uploadMessage.classList.remove('active');
+            }
+        }
+
+        async function uploadFile() {
+            if (!selectedFileObj) return;
+
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Uploading...';
+            progressBar.classList.add('active');
+            progressFill.style.width = '0%';
+
+            try {
+                // Step 1: Get presigned URL
+                const presignedResponse = await fetch(`${API_BASE_URL}/get-presigned-url/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`,
+                    },
+                    body: JSON.stringify({
+                        file_name: selectedFileObj.name,
+                        file_type: selectedFileObj.type || 'application/octet-stream',
+                    }),
+                });
+
+                if (!presignedResponse.ok) {
+                    throw new Error('Failed to get upload URL');
+                }
+
+                const { url, key } = await presignedResponse.json();
+                progressFill.style.width = '30%';
+
+                // Step 2: Upload to S3
+                const uploadResponse = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': selectedFileObj.type || 'application/octet-stream',
+                    },
+                    body: selectedFileObj,
+                });
+
+                if (!uploadResponse.ok) {
+                    throw new Error('Upload failed');
+                }
+
+                progressFill.style.width = '100%';
+                showMessage(uploadMessage, `✓ ${selectedFileObj.name} uploaded successfully!`, 'success');
+                
+                // Reset form
+                setTimeout(() => {
+                    selectedFileObj = null;
+                    fileInput.value = '';
+                    selectedFile.classList.remove('active');
+                    progressBar.classList.remove('active');
+                    progressFill.style.width = '0%';
+                }, 2000);
+
+            } catch (error) {
+                showMessage(uploadMessage, `✗ Upload failed: ${error.message}`, 'error');
+                progressBar.classList.remove('active');
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Upload File';
+            }
+        }
+
+        function showUploadSection() {
+            authSection.classList.remove('active');
+            uploadSection.classList.add('active');
+            const username = localStorage.getItem('username') || 'User';
+            userInfo.textContent = `👤 Logged in as: ${username}`;
+        }
+
+        function showMessage(element, text, type) {
+            element.textContent = text;
+            element.className = `message active ${type}`;
+        }
+
+        // Allow Enter key to submit login
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loginBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
